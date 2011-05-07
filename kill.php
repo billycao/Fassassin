@@ -2,8 +2,8 @@
 
 require_once('libraries/library.php');
 require_once('libraries/googlevoice.php');
-
-$gv = new GoogleVoice('fbhack.fassassin', 'facebookhackathon');
+require_once('/home/webby/fbhackathon/credentials.php');
+$gv = new GoogleVoice(VOICE_USER, VOICE_PASS);
 
 // get all new SMSs
 $sms = $gv->getNewSMS();

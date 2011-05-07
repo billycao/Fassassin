@@ -49,7 +49,7 @@ if ($checksql->num_rows !== 1) die("ERROR: User not in database");
 $checkresult = $checksql->fetch_assoc();
 
 if ($checkresult["phone"] == "") {
-	$_errorpage = "no_phone_number.php";
+	$handler = "no_phone_number.php";
 	$data = '';
 }
 

@@ -25,8 +25,9 @@ $return = assign_targets($gameid, $newgame);
 print_r($return);
 
 require_once('libraries/googlevoice.php');
+require_once('/home/webby/fbhackathon/credentials.php');
 
-$gv = new GoogleVoice('fbhack.fassassin', 'facebookhackathon');
+$gv = new GoogleVoice(VOICE_USER, VOICE_PASS);
 $players = getUsersInGame($gameid);
 print_r($players);
 foreach ($players as $player) {

@@ -1,5 +1,5 @@
 <?php
-
+require_once('/home/webby/fbhackathon/credentials.php');
 $db_connection = FALSE;
 
 function connect() {
@@ -7,7 +7,7 @@ function connect() {
 		return;
 	}
 	
-	$db_connection = mysql_connect('localhost', 'hackathon', 'deneve');
+	$db_connection = mysql_connect('localhost', DB_USER, DB_PASSWORD);
 	if (!$db_connection) {
 		die('Could not connect: ' . mysql_error());
 	}

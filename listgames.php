@@ -20,6 +20,7 @@ connect();
     <title>List Games</title>
     <style type="text/css">
     	.status {
+    		line-height: 20px;
     		padding: 4px 8px 4px 8px;
     		-moz-border-radius: 3px;
     		-webkit-border-radius: 3px;
@@ -129,6 +130,8 @@ if ($result) {
                 } else if ($row['admin'] == 1) {
                     $prepend .= ' <a href="#" onclick="promote('.$player['user_id'].','.$player['game_id'].')">[Promote]</a>';
                 }
+                echo '<span class="status '.$class.'"><span class="ml" onclick="window.open(\'http://www.facebook.com/profile.php?id='.$player['user_id'].'\');"><img src="https://graph.facebook.com/'.$player['user_id'].'/picture?type=small&access_token='.$cookie["access_token"].'" style="width:16px;height:16px;vertical-align:middle;" /> '.$status.$user['name'].'</span>'.$prepend.'</span>';
+                echo '<span class="status '.$class.'"><span class="ml" onclick="window.open(\'http://www.facebook.com/profile.php?id='.$player['user_id'].'\');"><img src="https://graph.facebook.com/'.$player['user_id'].'/picture?type=small&access_token='.$cookie["access_token"].'" style="width:16px;height:16px;vertical-align:middle;" /> '.$status.$user['name'].'</span>'.$prepend.'</span>';
                 echo '<span class="status '.$class.'"><span class="ml" onclick="window.open(\'http://www.facebook.com/profile.php?id='.$player['user_id'].'\');"><img src="https://graph.facebook.com/'.$player['user_id'].'/picture?type=small&access_token='.$cookie["access_token"].'" style="width:16px;height:16px;vertical-align:middle;" /> '.$status.$user['name'].'</span>'.$prepend.'</span>';
             }
         echo '</p>';

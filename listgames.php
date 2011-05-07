@@ -20,13 +20,14 @@ connect();
     <title>List Games</title>
     <style type="text/css">
     	.status {
-    		line-height: 20px;
-    		padding: 4px 8px 4px 8px;
+    		padding: 2px 8px 2px 8px;
     		-moz-border-radius: 3px;
     		-webkit-border-radius: 3px;
     		border-radius: 3px;
     		margin-left: 8px;
+    		margin-bottom: 6px;
     		background-color: #f3e7eb;
+    		display: inline-block;
     	}
         .dead {
             text-decoration: line-through;
@@ -43,6 +44,10 @@ connect();
         .won {
             background-color: green;
             color: white;
+        }
+        .uwin {
+        	color:  green;
+        	font-weight: bold;
         }
         .game-title {
             background: #d8ebff;
@@ -106,13 +111,13 @@ if ($result) {
             } else if ($target_id == -1) {
                 $game_status .=  '<span class="game-status died">You have been eliminated!</span>';
             } else if ($target_id == -2) {
-                $game_status .=  '<span class="game-status"><span class="won">Congratulations! You won this game!</span> The game has ended.</span>';
+                $game_status .=  '<span class="game-status"><span class="uwin">Congratulations! You won this game!</span> The game has ended.</span>';
             } else {
                 $game_status .=  '<span class="game-status"><em>Game in progress...</em></span>';
             }
             
         echo '<p class="game-title" style="line-height:18px;"><span style="font-size:16px;">'.$game['name'].'</span> '.$game_status.$options.'</p>';
-        echo '<p style="margin-bottom:25px;">';
+        echo '<p style="margin-bottom:25px;line-height:2em;">';
             while ($player = mysql_fetch_assoc($games)) {
                 $query = "SELECT * FROM `face_users` WHERE `facebook_id` = ".$player['user_id']." ORDER BY name DESC";
                 $user = mysql_fetch_assoc(mysql_query($query));
@@ -123,15 +128,13 @@ if ($result) {
                 } else if ($player['dead'] == 1 || $player['dead'] == 2) {
                     $class = 'dead';
                 } else if ($player['target_id'] == -2) {
-                    $class = 'won';
-                } 
+                    $class = 'won'; 
+                }  
                 if ($player['admin'] == 1) {
                     $class .= " owner";
                 } else if ($row['admin'] == 1) {
                     $prepend .= ' <a href="#" onclick="promote('.$player['user_id'].','.$player['game_id'].')">[Promote]</a>';
                 }
-                echo '<span class="status '.$class.'"><span class="ml" onclick="window.open(\'http://www.facebook.com/profile.php?id='.$player['user_id'].'\');"><img src="https://graph.facebook.com/'.$player['user_id'].'/picture?type=small&access_token='.$cookie["access_token"].'" style="width:16px;height:16px;vertical-align:middle;" /> '.$status.$user['name'].'</span>'.$prepend.'</span>';
-                echo '<span class="status '.$class.'"><span class="ml" onclick="window.open(\'http://www.facebook.com/profile.php?id='.$player['user_id'].'\');"><img src="https://graph.facebook.com/'.$player['user_id'].'/picture?type=small&access_token='.$cookie["access_token"].'" style="width:16px;height:16px;vertical-align:middle;" /> '.$status.$user['name'].'</span>'.$prepend.'</span>';
                 echo '<span class="status '.$class.'"><span class="ml" onclick="window.open(\'http://www.facebook.com/profile.php?id='.$player['user_id'].'\');"><img src="https://graph.facebook.com/'.$player['user_id'].'/picture?type=small&access_token='.$cookie["access_token"].'" style="width:16px;height:16px;vertical-align:middle;" /> '.$status.$user['name'].'</span>'.$prepend.'</span>';
             }
         echo '</p>';
@@ -151,6 +154,7 @@ function newgame(gameid) {
        data: 'gameid='+gameid+'&newgame=true',
        success: function(msg) {
            if (msg !== "")
+               alert(msg);
            navNick('listgames.php');
        }
     });

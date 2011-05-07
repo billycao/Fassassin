@@ -29,7 +29,6 @@ require_once('/home/webby/fbhackathon/credentials.php');
 
 $gv = new GoogleVoice(VOICE_USER, VOICE_PASS);
 $players = getUsersInGame($gameid);
-print_r($players);
 foreach ($players as $player) {
 	$msg = "Your target for the game \"".$gname."\" is " . $players[$player['target_id']]['name'] . ". Let the games begin!"; 
 	$gv->sendSMS(substr($player['phone'], 2), $msg);
